@@ -5,49 +5,35 @@
  */
 package view;
 
-import controller.MainController;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import javax.swing.BorderFactory;
-import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.border.Border;
-import model.Jogador;
-import model.Move;
-import model.Piece;
-import model.PosicaoSend;
-import model.Position;
-import model.Tabuleiro;
+
 
 /**
  *
  * @author vinicius
  */
 public class MainScreen extends javax.swing.JFrame {
-    private MainController mainController;
-    private Tabuleiro tabuleiro;
-    private Piece pecaEscolhida;
-    private boolean partidaIniciada;
-    private boolean minhaVez;
-    private boolean pecasDistribuidas;
-    private HashMap<JLabel, Position> pecasNoTabuleiro = new HashMap<>();
+//    private MainController mainController;
+//    private Tabuleiro tabuleiro;
+//    private Piece pecaEscolhida;
+//    private boolean partidaIniciada;
+//    private boolean minhaVez;
+//    private boolean pecasDistribuidas;
+//    private HashMap<JLabel, Position> pecasNoTabuleiro = new HashMap<>();
     
     /**
      * Creates new form MainScreen
      */
     public MainScreen() {
         setTitle("Chicken-Foot Domino");
-        mainController = new MainController(this);
+//        mainController = new MainController(this);
         initComponents();
         preencherLabelsNaTela();
     }
@@ -58,20 +44,20 @@ public class MainScreen extends javax.swing.JFrame {
         
         for(int col = 0; col < 7; col++){
             for(int row = 0; row < 4; row++){
-                Position position = new Position(col, row);
+//                Position position = new Position(col, row);
+//
+//                GridBagConstraints gbc=new GridBagConstraints();
+//
+//                JLabel label = new JLabel();
+//                label.setName(col + "_" + row);
+//                label.addMouseListener(boardClickedListener());
+//                position.setLabel(label);
+//                label.setPreferredSize(new Dimension(70,100));
+//                pecasNoTabuleiro.put(label, position);
                 
-                GridBagConstraints gbc=new GridBagConstraints();
-                
-                JLabel label = new JLabel();
-                label.setName(col + "_" + row);
-                label.addMouseListener(boardClickedListener());
-                position.setLabel(label);
-                label.setPreferredSize(new Dimension(70,100));
-                pecasNoTabuleiro.put(label, position);
-                
-                gbc.gridy = row;
-                gbc.gridx = col;
-                jPanel7.add(label, gbc);
+//                gbc.gridy = row;
+//                gbc.gridx = col;
+//                jPanel7.add(label, gbc);
             }
         }
         
@@ -90,24 +76,24 @@ public class MainScreen extends javax.swing.JFrame {
         return new MouseListener() {
                     @Override
                     public void mouseClicked(MouseEvent arg0) {
-                        if(!minhaVez){
-                            JOptionPane.showMessageDialog(null, "Não é a sua vez");
-                            return;
-                        }
-                        if(partidaIniciada){
-                            JLabel source = (JLabel) arg0.getSource();
-                            if(pecaEscolhida != null){
-                                source.setIcon(pecaEscolhida.getImage());
-                                source.setVisible(true);
-                                Position p = pecasNoTabuleiro.get(source);
-                                
-                                enviarJogada(pecaEscolhida, p);
-                                pecaEscolhida = null;
-                            }
-                        }
-                        else{
-                            JOptionPane.showMessageDialog(null, "A partida não foi iniciada");
-                        }
+//                        if(!minhaVez){
+//                            JOptionPane.showMessageDialog(null, "Não é a sua vez");
+//                            return;
+//                        }
+//                        if(partidaIniciada){
+//                            JLabel source = (JLabel) arg0.getSource();
+//                            if(pecaEscolhida != null){
+//                                source.setIcon(pecaEscolhida.getImage());
+//                                source.setVisible(true);
+//                                Position p = pecasNoTabuleiro.get(source);
+//
+//                                enviarJogada(pecaEscolhida, p);
+//                                pecaEscolhida = null;
+//                            }
+//                        }
+//                        else{
+//                            JOptionPane.showMessageDialog(null, "A partida não foi iniciada");
+//                        }
                     }
 
                     @Override
@@ -136,19 +122,19 @@ public class MainScreen extends javax.swing.JFrame {
             return new MouseListener() {
                     @Override
                     public void mouseClicked(MouseEvent arg0) {
-                        if(!minhaVez){
-                            JOptionPane.showMessageDialog(null, "Não é a sua vez");
-                            return;
-                        }
-                        if(partidaIniciada){
-                            JLabel source = (JLabel) arg0.getSource();
-                            
-                            Piece p = tabuleiro.getJogador1().getPecas().get(Integer.parseInt(source.getName()));
-                            if(p != null){
-                                pecaEscolhida = p;
-                                JOptionPane.showMessageDialog(null, "Escolha o local no tabuleiro para colocar a peça");
-                            }
-                        }
+//                        if(!minhaVez){
+//                            JOptionPane.showMessageDialog(null, "Não é a sua vez");
+//                            return;
+//                        }
+//                        if(partidaIniciada){
+//                            JLabel source = (JLabel) arg0.getSource();
+//
+//                            Piece p = tabuleiro.getJogador1().getPecas().get(Integer.parseInt(source.getName()));
+//                            if(p != null){
+//                                pecaEscolhida = p;
+//                                JOptionPane.showMessageDialog(null, "Escolha o local no tabuleiro para colocar a peça");
+//                            }
+//                        }
                     }
 
                     @Override
@@ -173,124 +159,124 @@ public class MainScreen extends javax.swing.JFrame {
                 };
     }
     
-    public void updateStateAndPlayer(boolean newState, String serverName, Jogador jogador){
-        Color color = Color.RED;
-        if(newState){
-            jLabel4.setText("Conectado a " + serverName);
-            jLabel8.setText(jogador.getNome());
-            color = Color.GREEN;
-        }
-        else{
-            jLabel4.setText("NÃO CONECTADO");
-        }
-        jButton1.setBackground(color);   
-    }
+//    public void updateStateAndPlayer(boolean newState, String serverName, Jogador jogador){
+//        Color color = Color.RED;
+//        if(newState){
+//            jLabel4.setText("Conectado a " + serverName);
+//            jLabel8.setText(jogador.getNome());
+//            color = Color.GREEN;
+//        }
+//        else{
+//            jLabel4.setText("NÃO CONECTADO");
+//        }
+//        jButton1.setBackground(color);
+//    }
     
-    public void partidaIniciada(Jogador jogadorDaVez, boolean iniciadoPorMim){
-        jLabel2.setText("VEZ DE " + (iniciadoPorMim ? mainController.eu.getNome() : mainController.outroJogador.getNome()));
-        jLabel3.setText(mainController.outroJogador.getNome());
-        minhaVez = iniciadoPorMim;
-        
-        partidaIniciada = true;
-        tabuleiro = new Tabuleiro(this, mainController.eu, mainController.outroJogador, iniciadoPorMim);
-        Piece primeiraPeca = new Piece(6,6);
-        Position posicaoPrimeiraPeca = new Position(3,2);
-        if(iniciadoPorMim){
-            distribuirPecas();
-            enviarJogada(primeiraPeca, posicaoPrimeiraPeca);
-        }
-        Move moveFake = new Move();
-        PosicaoSend posicao = new PosicaoSend(posicaoPrimeiraPeca.getX(), posicaoPrimeiraPeca.getY());
-        posicao.setPiece(primeiraPeca);
-        moveFake.setPosition(posicao);
-        receberJogada(moveFake);
-    }
+//    public void partidaIniciada(Jogador jogadorDaVez, boolean iniciadoPorMim){
+//        jLabel2.setText("VEZ DE " + (iniciadoPorMim ? mainController.eu.getNome() : mainController.outroJogador.getNome()));
+//        jLabel3.setText(mainController.outroJogador.getNome());
+//        minhaVez = iniciadoPorMim;
+//
+//        partidaIniciada = true;
+//        tabuleiro = new Tabuleiro(this, mainController.eu, mainController.outroJogador, iniciadoPorMim);
+//        Piece primeiraPeca = new Piece(6,6);
+//        Position posicaoPrimeiraPeca = new Position(3,2);
+//        if(iniciadoPorMim){
+//            distribuirPecas();
+//            enviarJogada(primeiraPeca, posicaoPrimeiraPeca);
+//        }
+//        Move moveFake = new Move();
+//        PosicaoSend posicao = new PosicaoSend(posicaoPrimeiraPeca.getX(), posicaoPrimeiraPeca.getY());
+//        posicao.setPiece(primeiraPeca);
+//        moveFake.setPosition(posicao);
+//        receberJogada(moveFake);
+//    }
     
     public void distribuirPecas(){
         MouseListener listener = minhasPecasListener();
         int position = 0;
         
-        List<Piece> pecas = tabuleiro.getJogador1().getPecas();
+//        List<Piece> pecas = tabuleiro.getJogador1().getPecas();
         
-        jLabel10.setIcon(pecas.get(0).getImage());
-        jLabel10.setName("0");
-        
-        jLabel11.setIcon(pecas.get(1).getImage());
-        jLabel11.setName("1");
-        
-        jLabel12.setIcon(pecas.get(2).getImage());
-        jLabel12.setName("2");
-        
-        jLabel13.setIcon(pecas.get(3).getImage());
-        jLabel13.setName("3");
-        
-        jLabel14.setIcon(pecas.get(4).getImage());
-        jLabel14.setName("4");
-        
-        jLabel15.setIcon(pecas.get(5).getImage());
-        jLabel15.setName("5");
-        
-        jLabel16.setIcon(pecas.get(6).getImage());
-        jLabel16.setName("6");
-        
-        jLabel17.setIcon(pecas.get(7).getImage());
-        jLabel17.setName("7");
-        
-        jLabel18.setIcon(pecas.get(8).getImage());
-        jLabel18.setName("8");
-        
-        jLabel10.addMouseListener(listener);
-        jLabel11.addMouseListener(listener);
-        jLabel12.addMouseListener(listener);
-        jLabel13.addMouseListener(listener);
-        jLabel14.addMouseListener(listener);
-        jLabel15.addMouseListener(listener);
-        jLabel16.addMouseListener(listener);
-        jLabel17.addMouseListener(listener);
-        jLabel18.addMouseListener(listener);
-        pecasDistribuidas = true;
+//        jLabel10.setIcon(pecas.get(0).getImage());
+//        jLabel10.setName("0");
+//
+//        jLabel11.setIcon(pecas.get(1).getImage());
+//        jLabel11.setName("1");
+//
+//        jLabel12.setIcon(pecas.get(2).getImage());
+//        jLabel12.setName("2");
+//
+//        jLabel13.setIcon(pecas.get(3).getImage());
+//        jLabel13.setName("3");
+//
+//        jLabel14.setIcon(pecas.get(4).getImage());
+//        jLabel14.setName("4");
+//
+//        jLabel15.setIcon(pecas.get(5).getImage());
+//        jLabel15.setName("5");
+//
+//        jLabel16.setIcon(pecas.get(6).getImage());
+//        jLabel16.setName("6");
+//
+//        jLabel17.setIcon(pecas.get(7).getImage());
+//        jLabel17.setName("7");
+//
+//        jLabel18.setIcon(pecas.get(8).getImage());
+//        jLabel18.setName("8");
+//
+//        jLabel10.addMouseListener(listener);
+//        jLabel11.addMouseListener(listener);
+//        jLabel12.addMouseListener(listener);
+//        jLabel13.addMouseListener(listener);
+//        jLabel14.addMouseListener(listener);
+//        jLabel15.addMouseListener(listener);
+//        jLabel16.addMouseListener(listener);
+//        jLabel17.addMouseListener(listener);
+//        jLabel18.addMouseListener(listener);
+//        pecasDistribuidas = true;
         JOptionPane.showMessageDialog(null, "Partida Iniciada");
     }
     
     
-    public void receberJogada(Move move){
-        System.out.println("Jogada recebida de " + move.getJogador().getNome());
-        if(move != null && move.getPosition() != null){
-            JLabel label = findByPosition(new Position(move.getPosition().getX(), move.getPosition().getY()));
-            if(label != null){
-                label.setIcon(move.getPosition().getPiece().getImage());
-            }
-        }
-        if(!pecasDistribuidas){
-            mainController.eu.setPecas(move.getOutroJogador().getPecas());
-            distribuirPecas();
-        }
-        this.minhaVez = true;
-        jLabel2.setText("VEZ DE " + mainController.eu.getNome());
-    }
+//    public void receberJogada(Move move){
+//        System.out.println("Jogada recebida de " + move.getJogador().getNome());
+//        if(move != null && move.getPosition() != null){
+//            JLabel label = findByPosition(new Position(move.getPosition().getX(), move.getPosition().getY()));
+//            if(label != null){
+//                label.setIcon(move.getPosition().getPiece().getImage());
+//            }
+//        }
+//        if(!pecasDistribuidas){
+//            mainController.eu.setPecas(move.getOutroJogador().getPecas());
+//            distribuirPecas();
+//        }
+//        this.minhaVez = true;
+//        jLabel2.setText("VEZ DE " + mainController.eu.getNome());
+//    }
     
-    private JLabel findByPosition(Position position){
-        Optional<JLabel> label = pecasNoTabuleiro.keySet().stream().filter(e -> e.getName().equals(position.getX() + "_" + position.getY())).findFirst();
-        if(label.isPresent()){
-            return label.get();
-        }
-        return null;
-    }
+//    private JLabel findByPosition(Position position){
+//        Optional<JLabel> label = pecasNoTabuleiro.keySet().stream().filter(e -> e.getName().equals(position.getX() + "_" + position.getY())).findFirst();
+//        if(label.isPresent()){
+//            return label.get();
+//        }
+//        return null;
+//    }
     
-    public void enviarJogada(Piece piece, Position position){
-        Move move = new Move();
-        move.setJogador(mainController.eu);
-        move.setOutroJogador(mainController.outroJogador);
-        
-        PosicaoSend posicao = new PosicaoSend(position.getX(), position.getY());
-        posicao.setPiece(piece);
-        
-        move.setPosition(posicao);
-        
-        mainController.sendMove(move);
-        this.minhaVez = false;
-         jLabel2.setText("VEZ DE " + mainController.outroJogador.getNome());
-    }
+//    public void enviarJogada(Piece piece, Position position){
+//        Move move = new Move();
+//        move.setJogador(mainController.eu);
+//        move.setOutroJogador(mainController.outroJogador);
+//
+//        PosicaoSend posicao = new PosicaoSend(position.getX(), position.getY());
+//        posicao.setPiece(piece);
+//
+//        move.setPosition(posicao);
+//
+//        mainController.sendMove(move);
+//        this.minhaVez = false;
+//         jLabel2.setText("VEZ DE " + mainController.outroJogador.getNome());
+//    }
     
     public void limparCampos(){
         jLabel10.setIcon(null);
@@ -303,11 +289,11 @@ public class MainScreen extends javax.swing.JFrame {
         jLabel17.setIcon(null);
         jLabel18.setIcon(null);
         
-        for(Position p : this.pecasNoTabuleiro.values()){
-            if(p.getLabel() != null){
-                p.getLabel().setIcon(null);
-            }
-        }
+//        for(Position p : this.pecasNoTabuleiro.values()){
+//            if(p.getLabel() != null){
+//                p.getLabel().setIcon(null);
+//            }
+//        }
         jLabel2.setText("PARTIDA NÃO INICIADA");
     }
 
@@ -659,7 +645,7 @@ public class MainScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        mainController.enviarInicioPartida();
+//        mainController.enviarInicioPartida();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -673,16 +659,16 @@ public class MainScreen extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "É necessário informar um nome válido.");
             return;
         }
-        boolean result = mainController.conectar(servidor, nomeJogador);
-        if(result){
-            JOptionPane.showMessageDialog(null, "Conexão realizada com sucesso");
-            return;
-        }
+//        boolean result = mainController.conectar(servidor, nomeJogador);
+//        if(result){
+//            JOptionPane.showMessageDialog(null, "Conexão realizada com sucesso");
+//            return;
+//        }
         JOptionPane.showMessageDialog(null, "Não foi possível conectar");
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        mainController.desconectar();
+//        mainController.desconectar();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
